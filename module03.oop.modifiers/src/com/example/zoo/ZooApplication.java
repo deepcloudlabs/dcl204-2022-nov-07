@@ -8,11 +8,11 @@ public class ZooApplication {
 	public static void main(String[] args) {
 		var zooAnimals = List.of(
 		   new Spider(),
-		   new Cat("Garfield"),
-		   new Fish("Free Willy"),
-		   new Cat(),
+		   new Cat("Garfield"), // 4
+		   new Fish("Free Willy"), // 0
+		   new Cat(), // 4
 		   new Spider(),
-		   new Fish("Jaws")
+		   new Fish("Jaws") // 0
 		);
 		// external loop
 		/*
@@ -47,6 +47,14 @@ public class ZooApplication {
 		zooAnimals.stream()
 		          .parallel()
 		          .forEach(walk.andThen(eat).andThen(playIfPet));
+		var legs = 
+		zooAnimals.stream()
+				  //.parallel()
+		          // .filter(animal -> animal instanceof Pet)
+		          .filter(Pet.class::isInstance)
+		          .mapToInt(Animal::getLegs)
+		          .sum();
+		System.out.println(legs);
 	}
 
 }
