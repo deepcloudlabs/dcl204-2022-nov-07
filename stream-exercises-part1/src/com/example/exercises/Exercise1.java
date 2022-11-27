@@ -1,9 +1,7 @@
 package com.example.exercises;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.example.domain.Director;
@@ -22,19 +20,16 @@ public class Exercise1 {
 	public static void main(String[] args) {
 		// Find the number of movies of each director
         final Collection<Movie> movies = movieService.findAllMovies();
-        Map<Director,Long> directorsMovieCount = 
-        movies.stream()                           // Stream<Movie>
-              .map(Movie::getDirectors)           // Stream<List<Director>>
-              .flatMap(List<Director>::stream)    // Stream<Director>
-              .collect(Collectors.groupingBy(
-            		      Function.identity(),
-            		      Collectors.counting()
-            		   )
-              );
-        directorsMovieCount.forEach(
-           (dir,count) -> 
-            System.out.println(String.format("%32s:%d",dir.getName(),count))
-        );
+        Map<String,Long> dirMovCounts = 
+        movies.stream().map(Movie::getDirectors)
+        			   .flatMap(Collection::stream)
+                       .collect(Collectors.groupingBy(
+                    		       Director::getName,
+                    		       Collectors.counting()
+                    		     )
+                        );
+        dirMovCounts.forEach(
+        		(name,count) -> System.out.printf("%20s: %3d\n",name,count));
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
+@SuppressWarnings("unused")
 public class Exercise01 {
 
 	public static void main(String[] args) {

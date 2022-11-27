@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 public class ZooApplication {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		var zooAnimals = List.of(
 		   new Spider(),
